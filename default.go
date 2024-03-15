@@ -1,18 +1,18 @@
 package omg
 
-// Default is the theme by default
-type Default struct{}
+// DefaultEmailTheme is the theme by default
+type DefaultEmailTheme struct{}
 
 // Name returns the name of the default theme
-func (dt *Default) Name() string {
+func (dt *DefaultEmailTheme) Name() string {
 	return "default"
 }
 
 // HTMLTemplate returns a Golang template that will generate an HTML email.
-func (dt *Default) HTMLTemplate() string {
+func (dt *DefaultEmailTheme) HTMLTemplate() string {
 	return `
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -273,7 +273,7 @@ func (dt *Default) HTMLTemplate() string {
     }
   </style>
 </head>
-<body dir="{{.Hermes.TextDirection}}">
+<body dir="{{.Engine.TextDirection}}">
   <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0">
     <tr>
       <td class="content">
@@ -281,11 +281,11 @@ func (dt *Default) HTMLTemplate() string {
           <!-- Logo -->
           <tr>
             <td class="email-masthead">
-              <a class="email-masthead_name" href="{{.Hermes.Product.Link}}" target="_blank">
-                {{ if .Hermes.Product.Logo }}
-                  <img src="{{.Hermes.Product.Logo | url }}" class="email-logo" />
+              <a class="email-masthead_name" href="{{.Engine.Product.Link}}" target="_blank">
+                {{ if .Engine.Product.Logo }}
+                  <img src="{{.Engine.Product.Logo | url }}" class="email-logo" />
                 {{ else }}
-                  {{ .Hermes.Product.Name }}
+                  {{ .Engine.Product.Name }}
                 {{ end }}
                 </a>
             </td>
@@ -449,7 +449,7 @@ func (dt *Default) HTMLTemplate() string {
                     <p>
                       {{.Email.Body.Signature}},
                       <br />
-                      {{.Hermes.Product.Name}}
+                      {{.Engine.Product.Name}}
                     </p>
 
                     {{ if (eq .Email.Body.FreeMarkdown "") }}
@@ -460,7 +460,7 @@ func (dt *Default) HTMLTemplate() string {
                                 {{if $action.Button.Text}}
                                 <tr>
                                   <td>
-                                    <p class="sub">{{$.Hermes.Product.TroubleText | replace "{ACTION}" $action.Button.Text}}</p>
+                                    <p class="sub">{{$.Engine.Product.TroubleText | replace "{ACTION}" $action.Button.Text}}</p>
                                     <p class="sub"><a href="{{ $action.Button.Link }}">{{ $action.Button.Link }}</a></p>
                                   </td>
                                 </tr>
@@ -481,7 +481,7 @@ func (dt *Default) HTMLTemplate() string {
                 <tr>
                   <td class="content-cell">
                     <p class="sub center">
-                      {{.Hermes.Product.Copyright}}
+                      {{.Engine.Product.Copyright}}
                     </p>
                   </td>
                 </tr>
@@ -498,7 +498,7 @@ func (dt *Default) HTMLTemplate() string {
 }
 
 // PlainTextTemplate returns a Golang template that will generate an plain text email.
-func (dt *Default) PlainTextTemplate() string {
+func (dt *DefaultEmailTheme) PlainTextTemplate() string {
 	return `<h2>{{if .Email.Body.Title }}{{ .Email.Body.Title }}{{ else }}{{ .Email.Body.Greeting }} {{ .Email.Body.Name }},{{ end }}</h2>
 {{ with .Email.Body.Intros }}
   {{ range $line := . }}
@@ -557,8 +557,8 @@ func (dt *Default) PlainTextTemplate() string {
     <p>{{ $line }}<p>
   {{ end }}
 {{ end }}
-<p>{{.Email.Body.Signature}},<br>{{.Hermes.Product.Name}} - {{.Hermes.Product.Link}}</p>
+<p>{{.Email.Body.Signature}},<br>{{.Engine.Product.Name}} - {{.Engine.Product.Link}}</p>
 
-<p>{{.Hermes.Product.Copyright}}</p>
+<p>{{.Engine.Product.Copyright}}</p>
 `
 }

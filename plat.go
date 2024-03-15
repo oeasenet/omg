@@ -274,7 +274,7 @@ func (dt *Flat) HTMLTemplate() string {
     }
   </style>
 </head>
-<body dir="{{.Hermes.TextDirection}}">
+<body dir="{{.Engine.TextDirection}}">
   <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0">
     <tr>
       <td class="content">
@@ -282,11 +282,11 @@ func (dt *Flat) HTMLTemplate() string {
           <!-- Logo -->
           <tr>
             <td class="email-masthead">
-              <a class="email-masthead_name" href="{{.Hermes.Product.Link}}" target="_blank">
-                {{ if .Hermes.Product.Logo }}
-                  <img src="{{.Hermes.Product.Logo | url }}" class="email-logo" />
+              <a class="email-masthead_name" href="{{.Engine.Product.Link}}" target="_blank">
+                {{ if .Engine.Product.Logo }}
+                  <img src="{{.Engine.Product.Logo | url }}" class="email-logo" />
                 {{ else }}
-                  {{ .Hermes.Product.Name }}
+                  {{ .Engine.Product.Name }}
                 {{ end }}
                 </a>
             </td>
@@ -447,7 +447,7 @@ func (dt *Flat) HTMLTemplate() string {
                     <p>
                       {{.Email.Body.Signature}},
                       <br />
-                      {{.Hermes.Product.Name}}
+                      {{.Engine.Product.Name}}
                     </p>
 
                     {{ if (eq .Email.Body.FreeMarkdown "") }}
@@ -458,7 +458,7 @@ func (dt *Flat) HTMLTemplate() string {
                               {{if $action.Button.Text}}
                                 <tr>
                                   <td>
-                                    <p class="sub">{{$.Hermes.Product.TroubleText | replace "{ACTION}" $action.Button.Text}}</p>
+                                    <p class="sub">{{$.Engine.Product.TroubleText | replace "{ACTION}" $action.Button.Text}}</p>
                                     <p class="sub"><a href="{{ $action.Button.Link }}">{{ $action.Button.Link }}</a></p>
                                   </td>
                                 </tr>
@@ -479,7 +479,7 @@ func (dt *Flat) HTMLTemplate() string {
                 <tr>
                   <td class="content-cell">
                     <p class="sub center">
-                      {{.Hermes.Product.Copyright}}
+                      {{.Engine.Product.Copyright}}
                     </p>
                   </td>
                 </tr>
@@ -555,8 +555,8 @@ func (dt *Flat) PlainTextTemplate() string {
     <p>{{ $line }}<p>
   {{ end }}
 {{ end }}
-<p>{{.Email.Body.Signature}},<br>{{.Hermes.Product.Name}} - {{.Hermes.Product.Link}}</p>
+<p>{{.Email.Body.Signature}},<br>{{.Engine.Product.Name}} - {{.Engine.Product.Link}}</p>
 
-<p>{{.Hermes.Product.Copyright}}</p>
+<p>{{.Engine.Product.Copyright}}</p>
 `
 }
