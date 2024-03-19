@@ -48,7 +48,7 @@ func setDefaultEmailValues(e *Email) error {
 			Intros:     []string{},
 			Dictionary: []*Entry{},
 			Outros:     []string{},
-			Signature:  "OEASE OMS",
+			Signature:  "Yours truly",
 			Greeting:   "Hi",
 		},
 	}
